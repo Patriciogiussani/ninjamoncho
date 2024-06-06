@@ -100,7 +100,7 @@ export default class Game extends Phaser.Scene {
       this.gameOver = true;
       this.scene.start("end", {
         score: this.score,
-        gameOver: false,  // Esto indica que el jugador ha ganado
+        gameOver: false,  
       });
     }
   }
@@ -136,22 +136,24 @@ handlerTimer() {
     this.gameOver = true;
     this.scene.start("end", {
       score: this.score,
-      gameOver: true,  // Esto indica que el jugador ha perdido
+      gameOver: true,  
     });
   }
 }
 
-  onRecolectableBounced(recolectable, plataforma) {
-    console.log("recolectable rebote");
-    if (recolectable.texture.key !== "curry") {
-      let points = recolectable.getData("points");
-      points -= 5;
-      recolectable.setData("points", points);
-      if (points <= 0) {
-        recolectable.destroy();
-      }
+onRecolectableBounced(recolectable, plataforma) {
+  console.log("recolectable rebote");
+  if (recolectable.texture.key === "curry") {
+    recolectable.destroy();  
+  } else {
+    let points = recolectable.getData("points");
+    points -= 5;
+    recolectable.setData("points", points);
+    if (points <= 0) {
+      recolectable.destroy();
     }
   }
+}
 
   update() {
     if (this.cursor.left.isDown) {
